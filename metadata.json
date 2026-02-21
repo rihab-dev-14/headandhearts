@@ -1,0 +1,7 @@
+{
+  "name": "Hands & Hearts",
+  "description": "A premium youth impact platform designed for structured environmental action and community building, featuring a modern eco-aesthetic.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}

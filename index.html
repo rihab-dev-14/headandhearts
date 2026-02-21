@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hands & Hearts | Community & Ecology</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        sage: {
+                            50: '#fdfdf9',
+                            100: '#f9f9f0',
+                            200: '#f2f2e1',
+                            300: '#e5e5c8',
+                            400: '#d1d1a1',
+                            500: '#b8b87a',
+                            600: '#9c9c5d',
+                            700: '#7e7e4b',
+                            800: '#64643e',
+                            900: '#525235',
+                        },
+                        forest: {
+                            DEFAULT: '#2d4d2d',
+                            dark: '#1a2e1a',
+                            light: '#4a6b4a'
+                        },
+                        sun: {
+                            50: '#fffdf0',
+                            100: '#fff9d6',
+                            200: '#fff0ad',
+                            300: '#ffe175',
+                            400: '#ffd03d',
+                            500: '#ffbf00',
+                            600: '#e6a300',
+                            700: '#b37a00',
+                        },
+                        eco: {
+                            beige: '#fcfcf7',
+                            white: '#ffffff'
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    borderRadius: {
+                        '4xl': '2rem',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #fdfdf9;
+            font-family: 'Inter', sans-serif;
+            color: #1a2e1a;
+        }
+        .hero-gradient {
+            background: linear-gradient(to bottom, rgba(45, 77, 45, 0.3), rgba(45, 77, 45, 0.6));
+        }
+        .hidden { display: none; }
+        .animate-fade-in {
+            animation: fadeIn 0.7s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="selection:bg-sun-200 selection:text-forest">
+    <!-- Navbar -->
+    <nav class="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-6xl">
+        <div class="bg-white/90 backdrop-blur-md border border-sage-200 shadow-lg px-8 py-4 rounded-full flex items-center justify-between">
+            <div class="flex items-center gap-3 cursor-pointer group" onclick="navigate('landing')">
+                <div class="w-10 h-10 bg-sun-500 rounded-full flex items-center justify-center text-forest font-bold transition-transform group-hover:rotate-12 shadow-inner">
+                    <svg viewBox="0 0 24 24" class="w-6 h-6 fill-forest" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2L4.5 20.29L5.21 21L12 18L18.79 21L19.5 20.29L12 2Z" />
+                    </svg>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-forest font-serif text-xl font-bold tracking-tight leading-none">Hands & Hearts</span>
+                    <span class="text-[10px] uppercase tracking-[0.2em] font-bold text-sun-600">Ecology & Culture</span>
+                </div>
+            </div>
+
+            <div class="hidden md:flex items-center gap-8 text-forest/80 font-semibold text-sm uppercase tracking-wider">
+                <button onclick="navigate('landing')" class="hover:text-sun-600 transition-colors">Home</button>
+                <button onclick="navigate('about')" class="hover:text-sun-600 transition-colors">About Us</button>
+                <button onclick="navigate('events')" class="hover:text-sun-600 transition-colors">Events</button>
+                <button onclick="navigate('educational')" class="hover:text-sun-600 transition-colors">Educational Materials</button>
+            </div>
+
+            <div class="flex items-center gap-4">
+                <button onclick="navigate('start-toloka')" class="hidden sm:block bg-forest text-white px-6 py-2.5 rounded-full font-bold text-sm hover:bg-forest-light transition-all shadow-md active:scale-95 border-b-4 border-forest-dark">
+                    Start Toloka
+                </button>
+                <!-- Mobile Menu Button -->
+                <button onclick="toggleMobileMenu()" class="md:hidden p-2 text-forest hover:bg-sage-100 rounded-full transition-colors">
+                    <svg id="menu-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                    </svg>
+                    <svg id="close-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu" class="hidden md:hidden absolute top-20 left-0 w-full bg-white/95 backdrop-blur-xl border-b border-sage-200 shadow-2xl animate-fade-in z-40">
+            <div class="p-8 flex flex-col gap-6 text-center">
+                <button onclick="navigate('landing'); toggleMobileMenu()" class="text-xl font-bold text-forest hover:text-sun-600 transition-colors">Home</button>
+                <button onclick="navigate('about'); toggleMobileMenu()" class="text-xl font-bold text-forest hover:text-sun-600 transition-colors">About Us</button>
+                <button onclick="navigate('events'); toggleMobileMenu()" class="text-xl font-bold text-forest hover:text-sun-600 transition-colors">Events</button>
+                <button onclick="navigate('educational'); toggleMobileMenu()" class="text-xl font-bold text-forest hover:text-sun-600 transition-colors">Educational Materials</button>
+                <button onclick="navigate('start-toloka'); toggleMobileMenu()" class="bg-forest text-white py-4 rounded-2xl font-bold text-lg shadow-lg">Start Toloka</button>
+            </div>
+        </div>
+    </nav>
+
+    <main id="main-content" class="animate-fade-in">
+        <!-- Views will be injected here or toggled -->
+        
+        <!-- LANDING VIEW -->
+        <div id="view-landing">
+            <!-- Hero -->
+            <section class="relative h-screen min-h-[700px] flex items-center justify-center overflow-hidden">
+                <div class="absolute inset-0 bg-cover bg-center transition-transform duration-1000 scale-105" style="background-image: url('https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=2000')">
+                    <div class="absolute inset-0 hero-gradient"></div>
+                </div>
+                <div class="relative z-10 text-center px-4 max-w-5xl">
+                    <div class="inline-block px-4 py-1.5 bg-sun-500/20 backdrop-blur-sm border border-sun-500/30 rounded-full mb-8">
+                        <span class="text-sun-300 font-bold text-xs uppercase tracking-[0.3em]">Where Ecology Meets Culture</span>
+                    </div>
+                    <h1 class="text-white font-serif text-5xl md:text-8xl mb-8 leading-tight">
+                        Turn Care into <span class="italic text-sun-400">Action.</span> <br> 
+                        Unite for <span class="underline decoration-sun-500 underline-offset-8">Community.</span>
+                    </h1>
+                    <p class="text-white/90 text-xl md:text-2xl font-light mb-12 max-w-3xl mx-auto leading-relaxed">
+                        Empowering youth in Ukraine & Europe to blend environmental action with local traditions. Join us in building a sustainable future, rooted in spirit.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
+                        <button onclick="navigate('events')" class="group relative bg-forest text-white px-12 py-5 rounded-full font-bold text-xl hover:bg-forest-light transition-all shadow-2xl active:scale-95 border-b-4 border-forest-dark">
+                            Join an Event
+                        </button>
+                        <button onclick="navigate('start-toloka')" class="bg-sun-500 text-forest px-12 py-5 rounded-full font-bold text-xl hover:bg-sun-400 transition-all shadow-2xl active:scale-95 border-b-4 border-sun-600">
+                            Start Your Toloka
+                        </button>
+                    </div>
+                </div>
+                <div class="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-eco-beige to-transparent z-20"></div>
+            </section>
+
+            <!-- Why Hands & Hearts -->
+            <section class="py-24 px-6 bg-white relative overflow-hidden">
+                <div class="max-w-4xl mx-auto text-center relative z-10">
+                    <h2 class="text-sun-500 font-bold text-sm uppercase tracking-[0.3em] mb-4">Our Mission</h2>
+                    <h3 class="text-4xl md:text-6xl font-serif text-forest mb-8 leading-tight">
+                        Why <span class="italic">Hands & Hearts?</span>
+                    </h3>
+                    <p class="text-xl md:text-2xl text-forest/70 font-light leading-relaxed mb-12 max-w-3xl mx-auto">
+                        We engage teens to combat youth inactivity and cultural detachment through eco-events that blend environmental action with local traditions. Join us to either participate in a community clean-up or organize your own Toloka, promoting education, unity, and sustainability in your community.
+                    </p>
+                    <button onclick="navigate('about')" class="bg-sun-500 text-forest px-10 py-4 rounded-full font-bold text-lg hover:bg-sun-400 transition-all shadow-lg active:scale-95 border-b-4 border-sun-600">
+                        Learn More About Us
+                    </button>
+                </div>
+                <div class="absolute top-0 left-0 w-64 h-64 bg-sun-100 rounded-full -translate-x-1/2 -translate-y-1/2 opacity-30 blur-3xl"></div>
+                <div class="absolute bottom-0 right-0 w-96 h-96 bg-sage-100 rounded-full translate-x-1/3 translate-y-1/3 opacity-40 blur-3xl"></div>
+            </section>
+
+            <!-- Impact Options -->
+            <section class="py-24 px-6 bg-eco-beige">
+                <div class="max-w-6xl mx-auto">
+                    <div class="text-center mb-16">
+                        <h2 class="text-sun-500 font-bold text-sm uppercase tracking-[0.3em] mb-4">Get Involved</h2>
+                        <h3 class="text-4xl md:text-5xl font-serif text-forest">How You Can Make an Impact</h3>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                        <!-- Option 1 -->
+                        <div class="bg-sun-50 p-8 rounded-3xl border border-forest/5 hover:shadow-xl transition-all hover:-translate-y-2 flex flex-col h-full">
+                            <div class="mb-6 bg-white w-16 h-16 rounded-2xl flex items-center justify-center shadow-sm">
+                                <svg class="w-8 h-8 text-sun-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+                            </div>
+                            <h4 class="text-xl font-bold text-forest mb-3">Join a Community</h4>
+                            <p class="text-forest/70 text-sm mb-8 flex-grow leading-relaxed">Find a local event and join a team of like-minded youth.</p>
+                            <button onclick="navigate('events')" class="w-full py-3 rounded-xl bg-white text-forest font-bold text-sm border border-forest/10 hover:bg-forest hover:text-white transition-all shadow-sm">Join an Event</button>
+                        </div>
+                        <!-- Option 2 -->
+                        <div class="bg-sage-50 p-8 rounded-3xl border border-forest/5 hover:shadow-xl transition-all hover:-translate-y-2 flex flex-col h-full">
+                            <div class="mb-6 bg-white w-16 h-16 rounded-2xl flex items-center justify-center shadow-sm">
+                                <svg class="w-8 h-8 text-sage-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5s3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
+                            </div>
+                            <h4 class="text-xl font-bold text-forest mb-3">Access Resources</h4>
+                            <p class="text-forest/70 text-sm mb-8 flex-grow leading-relaxed">Toolkits, ideas, and guides to help you start your journey.</p>
+                            <button onclick="navigate('educational')" class="w-full py-3 rounded-xl bg-white text-forest font-bold text-sm border border-forest/10 hover:bg-forest hover:text-white transition-all shadow-sm">View Toolkits</button>
+                        </div>
+                        <!-- Option 3 -->
+                        <div class="bg-forest/5 p-8 rounded-3xl border border-forest/5 hover:shadow-xl transition-all hover:-translate-y-2 flex flex-col h-full">
+                            <div class="mb-6 bg-white w-16 h-16 rounded-2xl flex items-center justify-center shadow-sm">
+                                <svg class="w-8 h-8 text-forest" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+                            </div>
+                            <h4 class="text-xl font-bold text-forest mb-3">Organize Your Event</h4>
+                            <p class="text-forest/70 text-sm mb-8 flex-grow leading-relaxed">Lead your own Toloka and inspire your community.</p>
+                            <button onclick="navigate('start-toloka')" class="w-full py-3 rounded-xl bg-white text-forest font-bold text-sm border border-forest/10 hover:bg-forest hover:text-white transition-all shadow-sm">Start Your Toloka</button>
+                        </div>
+                        <!-- Option 4 -->
+                        <div class="bg-sun-100/30 p-8 rounded-3xl border border-forest/5 hover:shadow-xl transition-all hover:-translate-y-2 flex flex-col h-full">
+                            <div class="mb-6 bg-white w-16 h-16 rounded-2xl flex items-center justify-center shadow-sm">
+                                <svg class="w-8 h-8 text-sun-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
+                            </div>
+                            <h4 class="text-xl font-bold text-forest mb-3">Educational Materials</h4>
+                            <p class="text-forest/70 text-sm mb-8 flex-grow leading-relaxed">Videos, articles, and templates for structured action.</p>
+                            <button onclick="navigate('educational')" class="w-full py-3 rounded-xl bg-white text-forest font-bold text-sm border border-forest/10 hover:bg-forest hover:text-white transition-all shadow-sm">Learn About</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Impact Stories -->
+            <section class="py-24 px-6 bg-white">
+                <div class="max-w-6xl mx-auto">
+                    <div class="text-center mb-16">
+                        <h2 class="text-sun-500 font-bold text-sm uppercase tracking-[0.3em] mb-4">Voices of Our Volunteers</h2>
+                        <h3 class="text-4xl md:text-5xl font-serif text-forest">Stories from the Frontlines</h3>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                        <div class="flex flex-col md:flex-row gap-8 items-center bg-eco-beige p-8 rounded-4xl border border-forest/5">
+                            <div class="w-32 h-32 rounded-full overflow-hidden flex-shrink-0 border-4 border-sun-500 shadow-lg">
+                                <img src="https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?auto=format&fit=crop&q=80&w=400" alt="Olena" class="w-full h-full object-cover">
+                            </div>
+                            <div>
+                                <p class="text-xl italic text-forest/80 mb-6 leading-relaxed">"Joining Hands & Hearts changed how I see my community. We're not just cleaning up; we're reviving our traditions."</p>
+                                <div>
+                                    <h4 class="font-bold text-forest text-lg">Olena, 16</h4>
+                                    <p class="text-sun-600 font-bold text-xs uppercase tracking-widest">Volunteer</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex flex-col md:flex-row gap-8 items-center bg-eco-beige p-8 rounded-4xl border border-forest/5">
+                            <div class="w-32 h-32 rounded-full overflow-hidden flex-shrink-0 border-4 border-sun-500 shadow-lg">
+                                <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=400" alt="Marko" class="w-full h-full object-cover">
+                            </div>
+                            <div>
+                                <p class="text-xl italic text-forest/80 mb-6 leading-relaxed">"Leading my first Toloka was challenging but so rewarding. Seeing everyone come together for our forest was incredible."</p>
+                                <div>
+                                    <h4 class="font-bold text-forest text-lg">Marko, 17</h4>
+                                    <p class="text-sun-600 font-bold text-xs uppercase tracking-widest">Toloka Organizer</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Social Connect -->
+            <section class="py-24 px-6 bg-eco-beige overflow-hidden">
+                <div class="max-w-7xl mx-auto">
+                    <div class="text-center mb-16">
+                        <span class="text-sun-600 font-bold uppercase tracking-widest text-sm mb-4 block">Our Community</span>
+                        <h2 class="text-4xl md:text-5xl font-serif text-forest mb-6">Connect & Follow.</h2>
+                        <p class="text-forest/50 text-lg font-light max-w-xl mx-auto">Join 12,000+ youth leaders across the globe. Follow our journey and share your impact.</p>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-24">
+                        <a href="#" class="group relative flex flex-col items-center justify-center p-12 rounded-4xl bg-white border border-forest/5 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 overflow-hidden">
+                            <div class="absolute top-0 left-0 w-full h-1 bg-[#E1306C] opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                            <div class="text-3xl mb-4 group-hover:scale-125 transition-transform duration-500">📸</div>
+                            <h3 class="text-xl font-serif text-forest mb-1">Instagram</h3>
+                            <p class="text-sun-600 font-medium">@handsandhearts</p>
+                        </a>
+                        <a href="#" class="group relative flex flex-col items-center justify-center p-12 rounded-4xl bg-white border border-forest/5 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 overflow-hidden">
+                            <div class="absolute top-0 left-0 w-full h-1 bg-black opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                            <div class="text-3xl mb-4 group-hover:scale-125 transition-transform duration-500">🎵</div>
+                            <h3 class="text-xl font-serif text-forest mb-1">TikTok</h3>
+                            <p class="text-sun-600 font-medium">@handsandhearts_youth</p>
+                        </a>
+                        <a href="#" class="group relative flex flex-col items-center justify-center p-12 rounded-4xl bg-white border border-forest/5 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 overflow-hidden">
+                            <div class="absolute top-0 left-0 w-full h-1 bg-[#1DA1F2] opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                            <div class="text-3xl mb-4 group-hover:scale-125 transition-transform duration-500">🐦</div>
+                            <h3 class="text-xl font-serif text-forest mb-1">Twitter</h3>
+                            <p class="text-sun-600 font-medium">@handshearts</p>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Call to Action -->
+            <section class="py-32 px-6 bg-sun-50 text-center relative overflow-hidden">
+                <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-sun-100/50 via-transparent to-transparent opacity-50"></div>
+                <div class="max-w-2xl mx-auto relative z-10">
+                    <h2 class="text-4xl md:text-5xl font-serif text-forest mb-8 leading-tight">Ready to Make <br><span class="italic text-sun-600">an Impact?</span></h2>
+                    <button onclick="navigate('events')" class="bg-forest text-white px-12 py-5 rounded-full font-bold text-xl hover:bg-forest-light transition-all shadow-2xl hover:scale-105 active:scale-95 border-b-4 border-forest-dark">Join an Event</button>
+                    <p class="mt-6 text-forest/40 text-sm font-bold uppercase tracking-widest">Follow us to stay involved in upcoming missions.</p>
+                </div>
+            </section>
+        </div>
+
+        <!-- ABOUT VIEW -->
+        <div id="view-about" class="hidden">
+            <div class="pt-32 pb-24 bg-eco-white min-h-screen">
+                <section class="px-6 mb-24">
+                    <div class="max-w-4xl mx-auto text-center">
+                        <span class="text-sun-600 font-bold uppercase tracking-widest text-sm mb-4 block">Our Story</span>
+                        <h1 class="text-5xl md:text-7xl font-serif text-forest mb-8 leading-tight">We are the <span class="italic">generation</span> of action.</h1>
+                        <p class="text-forest/60 text-xl font-light leading-relaxed">Hands & Hearts was founded to empower youth in Ukraine and Europe. We observed that young people have the passion to save the planet, but often lack the structured platform to make it happen while staying connected to their cultural roots.</p>
+                    </div>
+                </section>
+                <section class="bg-sun-50 py-24 px-6 relative overflow-hidden">
+                    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+                        <div class="relative">
+                            <div class="absolute -top-10 -left-10 w-full h-full bg-sun-500/10 rounded-4xl -rotate-3"></div>
+                            <img src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&q=80&w=1200" alt="Hands" class="relative z-10 rounded-4xl shadow-2xl border-b-8 border-sun-500">
+                        </div>
+                        <div>
+                            <h2 class="text-4xl font-serif text-forest mb-6">Our Mission</h2>
+                            <p class="text-forest/70 text-lg font-light leading-relaxed mb-8">To empower youth through structured environmental action, bridging the gap between classroom learning and real-world conservation impact. We provide the logistics, the safety, and the community—rooted in the tradition of Toloka.</p>
+                            <div class="space-y-6">
+                                <div class="flex gap-4">
+                                    <div class="w-6 h-6 rounded-full bg-sun-500 shrink-0 mt-1 shadow-sm"></div>
+                                    <div><h4 class="text-forest font-bold mb-1">Youth-Led</h4><p class="text-forest/50 text-sm">We believe the best solutions for the future come from those who will live in it.</p></div>
+                                </div>
+                                <div class="flex gap-4">
+                                    <div class="w-6 h-6 rounded-full bg-sun-500 shrink-0 mt-1 shadow-sm"></div>
+                                    <div><h4 class="text-forest font-bold mb-1">Cultural Heritage</h4><p class="text-forest/50 text-sm">Our actions are rooted in local traditions like Toloka, blending history with ecology.</p></div>
+                                </div>
+                                <div class="flex gap-4">
+                                    <div class="w-6 h-6 rounded-full bg-sun-500 shrink-0 mt-1 shadow-sm"></div>
+                                    <div><h4 class="text-forest font-bold mb-1">Community-First</h4><p class="text-forest/50 text-sm">Impact is only sustainable when it is rooted in local community needs and spirit.</p></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="py-24 px-6">
+                    <div class="max-w-7xl mx-auto text-center">
+                        <h2 class="text-4xl font-serif text-forest mb-4">The Hearts Behind the Hands</h2>
+                        <div class="w-20 h-1 bg-sun-500 mx-auto mb-16"></div>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                            <div class="text-center group">
+                                <div class="aspect-square rounded-4xl overflow-hidden mb-6 relative border-b-4 border-transparent group-hover:border-sun-500 transition-all shadow-lg">
+                                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=400" alt="Elena" class="w-full h-full object-cover">
+                                </div>
+                                <h3 class="text-xl font-serif text-forest mb-1">Elena Thorne</h3>
+                                <p class="text-sun-600 font-bold text-xs uppercase tracking-widest">Founding Director</p>
+                            </div>
+                            <div class="text-center group">
+                                <div class="aspect-square rounded-4xl overflow-hidden mb-6 relative border-b-4 border-transparent group-hover:border-sun-500 transition-all shadow-lg">
+                                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=400" alt="David" class="w-full h-full object-cover">
+                                </div>
+                                <h3 class="text-xl font-serif text-forest mb-1">David Kim</h3>
+                                <p class="text-sun-600 font-bold text-xs uppercase tracking-widest">Conservation Lead</p>
+                            </div>
+                            <div class="text-center group">
+                                <div class="aspect-square rounded-4xl overflow-hidden mb-6 relative border-b-4 border-transparent group-hover:border-sun-500 transition-all shadow-lg">
+                                    <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=400" alt="Sofia" class="w-full h-full object-cover">
+                                </div>
+                                <h3 class="text-xl font-serif text-forest mb-1">Sofia Rodriguez</h3>
+                                <p class="text-sun-600 font-bold text-xs uppercase tracking-widest">Community Manager</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <!-- EVENTS VIEW -->
+        <div id="view-events" class="hidden pt-24">
+            <section class="py-24 px-6 bg-white">
+                <div class="max-w-6xl mx-auto">
+                    <!-- Search Form -->
+                    <div class="mb-20 relative z-30">
+                        <form onsubmit="handleSearch(event)" class="bg-white p-6 rounded-4xl shadow-2xl border border-sage-200 flex flex-col lg:flex-row gap-4">
+                            <div class="flex-1 px-4 lg:border-r border-sage-100 flex flex-col">
+                                <label class="text-xs font-bold text-forest uppercase tracking-wider mb-2">Search City or Event</label>
+                                <input type="text" oninput="handleSearch()" placeholder="e.g. Kyiv, Forest..." class="outline-none text-forest font-medium placeholder-forest/30 bg-transparent">
+                            </div>
+                            <div class="flex-1 px-4 lg:border-r border-sage-100 flex flex-col">
+                                <label class="text-xs font-bold text-forest uppercase tracking-wider mb-2">Select Date</label>
+                                <input type="date" class="outline-none text-forest font-medium bg-transparent">
+                            </div>
+                            <div class="flex items-center">
+                                <button type="submit" class="w-full lg:w-auto bg-forest text-white px-10 py-4 rounded-2xl font-bold hover:bg-forest-light transition-all shadow-lg active:scale-95">Find Events</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+                        <div>
+                            <h2 class="text-sun-500 font-bold text-sm uppercase tracking-[0.3em] mb-4">Calendar</h2>
+                            <h3 class="text-4xl md:text-5xl font-serif text-forest">Upcoming & Past Events</h3>
+                        </div>
+                        <div class="flex bg-sage-100 p-1 rounded-xl">
+                            <button id="btn-upcoming" onclick="filterEvents('upcoming')" class="px-6 py-2 rounded-lg font-bold text-sm transition-all bg-white text-forest shadow-sm">Upcoming</button>
+                            <button id="btn-past" onclick="filterEvents('past')" class="px-6 py-2 rounded-lg font-bold text-sm transition-all text-forest/50 hover:text-forest">Past</button>
+                        </div>
+                    </div>
+
+                    <div id="events-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <!-- Events will be injected here -->
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- EDUCATIONAL VIEW -->
+        <div id="view-educational" class="hidden pt-24">
+            <section class="py-24 px-6 bg-white">
+                <div class="max-w-6xl mx-auto">
+                    <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+                        <div>
+                            <h2 class="text-sun-500 font-bold text-sm uppercase tracking-[0.3em] mb-4">Resources</h2>
+                            <h3 class="text-4xl md:text-5xl font-serif text-forest">Educational Materials</h3>
+                        </div>
+                        <button class="text-forest font-bold border-b-2 border-sun-500 pb-1 hover:text-sun-600 transition-colors">View All Resources</button>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                        <div class="group cursor-pointer">
+                            <div class="relative overflow-hidden rounded-3xl mb-6 aspect-[4/3]">
+                                <img src="https://picsum.photos/seed/guide/400/300" alt="Guide" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                                <div class="absolute top-4 left-4"><span class="bg-sun-500 text-forest text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full">PDF Guide</span></div>
+                            </div>
+                            <h4 class="text-2xl font-serif text-forest mb-2 group-hover:text-sun-600 transition-colors">Toloka Guide 2024</h4>
+                            <p class="text-forest/60 text-sm leading-relaxed">Everything you need to know about organizing a traditional community cleanup.</p>
+                        </div>
+                        <div class="group cursor-pointer">
+                            <div class="relative overflow-hidden rounded-3xl mb-6 aspect-[4/3]">
+                                <img src="https://picsum.photos/seed/video/400/300" alt="Video" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                                <div class="absolute top-4 left-4"><span class="bg-sun-500 text-forest text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full">Video Series</span></div>
+                            </div>
+                            <h4 class="text-2xl font-serif text-forest mb-2 group-hover:text-sun-600 transition-colors">Eco-Traditions</h4>
+                            <p class="text-forest/60 text-sm leading-relaxed">Exploring the link between cultural heritage and environmental stewardship.</p>
+                        </div>
+                        <div class="group cursor-pointer">
+                            <div class="relative overflow-hidden rounded-3xl mb-6 aspect-[4/3]">
+                                <img src="https://picsum.photos/seed/workshop/400/300" alt="Workshop" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                                <div class="absolute top-4 left-4"><span class="bg-sun-500 text-forest text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full">Workshop</span></div>
+                            </div>
+                            <h4 class="text-2xl font-serif text-forest mb-2 group-hover:text-sun-600 transition-colors">Youth Leadership</h4>
+                            <p class="text-forest/60 text-sm leading-relaxed">Structured action templates for young leaders in local communities.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- START TOLOKA VIEW -->
+        <div id="view-start-toloka" class="hidden">
+            <div class="pt-32 pb-24 bg-eco-beige min-h-screen px-6">
+                <div id="toloka-form-container" class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+                    <!-- Form Section -->
+                    <div class="bg-white p-8 md:p-12 rounded-4xl shadow-2xl border border-sun-200 relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-full h-2 bg-sun-500"></div>
+                        <div class="flex items-center gap-3 mb-8">
+                            <div class="w-10 h-10 bg-sun-500 rounded-full flex items-center justify-center text-forest font-bold shadow-sm">
+                                <svg viewBox="0 0 24 24" class="w-6 h-6 fill-forest" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L4.5 20.29L5.21 21L12 18L18.79 21L19.5 20.29L12 2Z" /></svg>
+                            </div>
+                            <span class="text-forest font-serif text-xl font-bold">Hands & Hearts</span>
+                        </div>
+                        <h1 class="text-3xl md:text-4xl font-serif text-forest mb-4">Start Your Own EcoToloka</h1>
+                        <p class="text-forest/60 mb-10 leading-relaxed">Organize a local eco-action blending clean-up and community tradition. Fill out the form below to get started.</p>
+                        <form onsubmit="handleTolokaSubmit(event)" class="space-y-6">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="space-y-2">
+                                    <label class="text-xs font-bold text-forest uppercase tracking-widest flex items-center gap-1">Email and phone <span class="text-red-500">*</span></label>
+                                    <input required type="text" placeholder="e.g. name@example.com" class="w-full px-5 py-4 rounded-2xl bg-sage-50 border border-sage-200 focus:border-sun-500 focus:ring-2 focus:ring-sun-200 outline-none transition-all text-forest">
+                                </div>
+                                <div class="space-y-2">
+                                    <label class="text-xs font-bold text-forest uppercase tracking-widest flex items-center gap-1">Proposed Date <span class="text-red-500">*</span></label>
+                                    <input required type="date" class="w-full px-5 py-4 rounded-2xl bg-sage-50 border border-sage-200 focus:border-sun-500 focus:ring-2 focus:ring-sun-200 outline-none transition-all text-forest">
+                                </div>
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-xs font-bold text-forest uppercase tracking-widest flex items-center gap-1">Location (City/Town) <span class="text-red-500">*</span></label>
+                                <input required type="text" placeholder="Where will the Toloka take place?" class="w-full px-5 py-4 rounded-2xl bg-sage-50 border border-sage-200 focus:border-sun-500 focus:ring-2 focus:ring-sun-200 outline-none transition-all text-forest">
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-xs font-bold text-forest uppercase tracking-widest flex items-center gap-1">Expected number of participants <span class="text-red-500">*</span></label>
+                                <input required type="number" placeholder="e.g. 20" class="w-full px-5 py-4 rounded-2xl bg-sage-50 border border-sage-200 focus:border-sun-500 focus:ring-2 focus:ring-sun-200 outline-none transition-all text-forest">
+                            </div>
+                            <button type="submit" class="w-full bg-sun-500 text-forest py-5 rounded-2xl font-bold text-lg hover:bg-sun-400 transition-all shadow-xl active:scale-[0.98] border-b-4 border-sun-600 mt-4">Submit Application</button>
+                        </form>
+                    </div>
+                    <!-- Support Section -->
+                    <div class="lg:pt-12">
+                        <div class="inline-block px-4 py-1.5 bg-sun-500/20 backdrop-blur-sm border border-sun-500/30 rounded-full mb-6"><span class="text-sun-600 font-bold text-xs uppercase tracking-[0.3em]">Need Assistance?</span></div>
+                        <h2 class="text-4xl md:text-5xl font-serif text-forest mb-8 leading-tight">We're here to <br><span class="italic text-sun-600">support you.</span></h2>
+                        <p class="text-forest/70 text-lg font-light leading-relaxed mb-12">Organizing a Toloka is a big step, but you don't have to do it alone. Our support team is ready to provide you with toolkits, logistics advice, and promotional materials.</p>
+                        <div class="space-y-8">
+                            <div class="flex gap-6 items-start">
+                                <div class="w-14 h-14 bg-white rounded-2xl flex items-center justify-center shadow-lg border border-sun-100 shrink-0"><svg class="w-6 h-6 text-sun-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg></div>
+                                <div><h4 class="text-xl font-bold text-forest mb-1">Email Support</h4><p class="text-forest/60 mb-2">Get detailed answers to your questions.</p><a href="mailto:support@handsandhearts.org" class="text-sun-600 font-bold hover:text-sun-700 transition-colors">support@handsandhearts.org</a></div>
+                            </div>
+                            <div class="flex gap-6 items-start">
+                                <div class="w-14 h-14 bg-white rounded-2xl flex items-center justify-center shadow-lg border border-sun-100 shrink-0"><svg class="w-6 h-6 text-sun-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" /></svg></div>
+                                <div><h4 class="text-xl font-bold text-forest mb-1">Live Chat</h4><p class="text-forest/60 mb-2">Quick help via our Telegram channel.</p><a href="https://t.me/handsandhearts" class="text-sun-600 font-bold hover:text-sun-700 transition-colors">@handsandhearts_support</a></div>
+                            </div>
+                        </div>
+                        <div class="mt-16 p-8 bg-sun-500/10 rounded-3xl border border-sun-500/20">
+                            <h4 class="text-lg font-bold text-forest mb-2">Download Organizer Toolkit</h4>
+                            <p class="text-forest/60 text-sm mb-6">A comprehensive PDF guide with everything you need to know.</p>
+                            <button class="flex items-center gap-2 text-forest font-bold bg-white px-6 py-3 rounded-xl shadow-sm hover:shadow-md transition-all"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>Download PDF</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Success Message (initially hidden) -->
+                <div id="toloka-success" class="hidden max-w-md mx-auto bg-white p-12 rounded-4xl shadow-2xl text-center border border-sun-200 animate-fade-in">
+                    <div class="w-20 h-20 bg-sun-500 rounded-full flex items-center justify-center mx-auto mb-8 shadow-lg">
+                        <svg class="w-10 h-10 text-forest" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" /></svg>
+                    </div>
+                    <h2 class="text-3xl font-serif text-forest mb-4">Application Received!</h2>
+                    <p class="text-forest/60 mb-8 leading-relaxed">Thank you for your initiative. Our team will review your application and contact you within 48 hours to help you organize your EcoToloka.</p>
+                    <button onclick="resetTolokaForm()" class="text-sun-600 font-bold border-b-2 border-sun-500 pb-1 hover:text-sun-700 transition-colors">Submit another application</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-forest text-white py-20 px-6">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+                <div class="col-span-1 md:col-span-2">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-10 h-10 bg-sun-500 rounded-full flex items-center justify-center text-forest font-bold">
+                            <svg viewBox="0 0 24 24" class="w-6 h-6 fill-forest" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L4.5 20.29L5.21 21L12 18L18.79 21L19.5 20.29L12 2Z" /></svg>
+                        </div>
+                        <span class="font-serif text-2xl font-bold tracking-tight">Hands & Hearts</span>
+                    </div>
+                    <p class="text-white/60 max-w-sm leading-relaxed mb-8">Empowering the next generation to lead environmental action through cultural traditions. Rooted in community, driven by youth.</p>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:bg-sun-500 hover:text-forest hover:border-sun-500 transition-all"><div class="w-4 h-4 bg-current rounded-sm opacity-50"></div></a>
+                        <a href="#" class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:bg-sun-500 hover:text-forest hover:border-sun-500 transition-all"><div class="w-4 h-4 bg-current rounded-sm opacity-50"></div></a>
+                        <a href="#" class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:bg-sun-500 hover:text-forest hover:border-sun-500 transition-all"><div class="w-4 h-4 bg-current rounded-sm opacity-50"></div></a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-bold text-sun-500 uppercase tracking-widest text-xs mb-6">Platform</h4>
+                    <ul class="space-y-4 text-white/70">
+                        <li><button onclick="navigate('landing')" class="hover:text-white transition-colors">Home</button></li>
+                        <li><button onclick="navigate('about')" class="hover:text-white transition-colors">About Us</button></li>
+                        <li><button onclick="navigate('events')" class="hover:text-white transition-colors">Events</button></li>
+                        <li><button onclick="navigate('educational')" class="hover:text-white transition-colors">Educational Materials</button></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-sun-500 uppercase tracking-widest text-xs mb-6">Contact</h4>
+                    <ul class="space-y-4 text-white/70">
+                        <li>info@handsandhearts.org</li>
+                        <li>Kyiv, Ukraine</li>
+                        <li>+380 (44) 123-4567</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="pt-12 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6 text-white/40 text-sm">
+                <p>© 2024 Hands & Hearts. All rights reserved.</p>
+                <div class="flex gap-8">
+                    <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Event Detail Modal -->
+    <div id="event-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center px-6">
+        <div class="absolute inset-0 bg-forest/60 backdrop-blur-sm" onclick="closeEventModal()"></div>
+        <div id="modal-content" class="relative bg-white w-full max-w-2xl rounded-4xl shadow-2xl overflow-hidden animate-fade-in max-h-[90vh] overflow-y-auto">
+            <!-- Content injected by main.js -->
+        </div>
+    </div>
+
+    <script src="/main.js"></script>
+</body>
+</html>
