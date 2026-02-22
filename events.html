@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events | Hands & Hearts</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <a href="index.html" class="logo">
+                <span>🌿</span> Hands & Hearts
+            </a>
+            <div class="nav-links" id="navLinks">
+                <a href="index.html">Home</a>
+                <a href="about.html">About Us</a>
+                <a href="events.html">Events</a>
+                <a href="#">Educational Materials</a>
+                <a href="#" class="btn btn-outline">Sign In</a>
+            </div>
+            <button class="mobile-menu-toggle" id="menuToggle">☰</button>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header style="background-color: var(--color-bg); padding: 80px 0; text-align: center;">
+        <div class="container">
+            <h1>Our <span class="yellow-underline">Events</span></h1>
+            <p style="margin-top: 16px; color: var(--color-text-light);">Join a local initiative or browse our past achievements.</p>
+        </div>
+    </header>
+
+    <!-- Events Main Section -->
+    <section>
+        <div class="container">
+            <!-- Filter Bar -->
+            <div class="filter-bar">
+                <div class="filter-group">
+                    <label for="citySearch" style="display: block; margin-bottom: 8px; font-weight: 600;">Search by City</label>
+                    <input type="text" id="citySearch" placeholder="Enter city name...">
+                </div>
+                <div class="filter-group">
+                    <label for="dateFilter" style="display: block; margin-bottom: 8px; font-weight: 600;">Event Status</label>
+                    <select id="dateFilter">
+                        <option value="all">All Events</option>
+                        <option value="upcoming">Upcoming</option>
+                        <option value="past">Past</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="eventsContainer" class="events-grid">
+                <!-- Events will be populated by JS -->
+            </div>
+
+            <div id="noEventsMessage" style="display: none; text-align: center; padding: 40px;">
+                <p>No events found matching your criteria. Try searching for another city!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>Hands & Hearts</h4>
+                    <p>Youth-led movement for a greener, more connected world.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="events.html">Events</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li>hello@handsandhearts.org</li>
+                        <li>+380 44 123 4567</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Hands & Hearts. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal Form (same as index for consistency) -->
+    <div id="tolokaModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <div id="modalForm">
+                <h3>Start Your Toloka</h3>
+                <p style="margin-bottom: 24px;">Tell us about your initiative and we'll help you get started.</p>
+                <form id="tolokaForm">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="org">Organization / School</label>
+                        <input type="text" id="org">
+                    </div>
+                    <div class="form-group">
+                        <label for="city">City</label>
+                        <input type="text" id="city" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="desc">Description</label>
+                        <textarea id="desc" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Submit</button>
+                </form>
+            </div>
+            <div id="successMessage" class="success-message">
+                <span>🌿</span>
+                <h3>Success!</h3>
+                <p>Thank you for your initiative. Our team will contact you shortly to help bring your Toloka to life.</p>
+                <button class="btn btn-outline" onclick="closeModal()" style="margin-top: 24px;">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

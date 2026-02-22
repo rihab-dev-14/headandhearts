@@ -1,0 +1,116 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-green: #3d5a3d;
+  --color-brand-green-light: #4a6b4a;
+  --color-brand-yellow: #ffbf00;
+  --color-brand-yellow-dark: #e6ac00;
+  --color-brand-beige: #fdfcf7;
+  --color-brand-cream: #fffdf5;
+
+  --font-serif: "Playfair Display", serif;
+  --font-sans: "Inter", sans-serif;
+
+  --radius-4xl: 2rem;
+}
+
+@layer base {
+  body {
+    @apply bg-brand-beige font-sans text-brand-green selection:bg-brand-yellow/30;
+    line-height: 1.7;
+  }
+  h1, h2, h3, h4 {
+    @apply font-serif;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-brand-green text-white px-8 py-4 rounded-xl font-bold transition-all duration-300 shadow-md hover:bg-brand-green-light hover:shadow-lg active:scale-95;
+  }
+  .btn-accent {
+    @apply bg-brand-yellow text-brand-green px-8 py-4 rounded-xl font-bold transition-all duration-300 shadow-md hover:bg-brand-yellow-dark hover:shadow-lg active:scale-95;
+  }
+  .nav-link {
+    @apply relative text-brand-green/80 font-semibold text-sm uppercase tracking-wider hover:text-brand-green transition-colors;
+  }
+  .nav-link::after {
+    content: '';
+    @apply absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-yellow transition-all duration-300;
+  }
+  .nav-link:hover::after {
+    @apply w-full;
+  }
+  .card {
+    @apply bg-white p-8 rounded-3xl border border-brand-green/5 shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-2;
+  }
+}
+
+.hero-overlay {
+  background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.6));
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s ease-out;
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.modal-overlay {
+  @apply fixed inset-0 bg-black/60 backdrop-blur-sm z-[100] flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300;
+}
+.modal-overlay.active {
+  @apply opacity-100 pointer-events-auto;
+}
+.modal-content {
+  @apply bg-white w-full max-w-4xl rounded-4xl overflow-hidden shadow-2xl transform scale-95 transition-transform duration-500 flex flex-col md:flex-row;
+}
+.modal-overlay.active .modal-content {
+  @apply scale-100;
+}
+.modal-sidebar {
+  @apply hidden md:flex md:w-2/5 bg-brand-green p-12 text-white flex-col justify-between relative overflow-hidden;
+}
+.modal-sidebar::before {
+  content: '';
+  @apply absolute inset-0 opacity-10;
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+.form-input {
+  @apply w-full px-6 py-4 rounded-2xl bg-brand-beige border border-brand-green/10 focus:border-brand-yellow focus:ring-4 focus:ring-brand-yellow/5 outline-none transition-all text-brand-green placeholder:text-brand-green/30 font-medium;
+}
+.form-label {
+  @apply text-[10px] font-bold text-brand-green/50 uppercase tracking-[0.2em] mb-2 block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 1s ease-out forwards;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.8s ease-out forwards;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.5s ease-out forwards;
+}

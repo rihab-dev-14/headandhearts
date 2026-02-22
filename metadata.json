@@ -1,7 +1,5 @@
 {
   "name": "Hands & Hearts",
-  "description": "A premium youth impact platform designed for structured environmental action and community building, featuring a modern eco-aesthetic.",
-  "requestFramePermissions": [
-    "camera"
-  ]
+  "description": "A warm, community-driven platform for youth-led cultural and ecological action, rooted in tradition and unity.",
+  "requestFramePermissions": []
 }
