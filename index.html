@@ -129,7 +129,38 @@
     </nav>
 
     <!-- Mobile Side Menu -->
+    <div id="mobile-menu"
+        class="fixed top-0 right-0 h-full w-64 bg-white shadow-lg transform translate-x-full transition-transform duration-300 z-50">
 
+        <div class="flex flex-col p-6 gap-6 mt-16">
+
+            <button onclick="navigate('landing')"
+                class="text-forest font-semibold uppercase text-sm hover:text-sun-600 text-left">
+                Home
+            </button>
+
+            <button onclick="navigate('about')"
+                class="text-forest font-semibold uppercase text-sm hover:text-sun-600 text-left">
+                About Us
+            </button>
+
+            <button onclick="navigate('events')"
+                class="text-forest font-semibold uppercase text-sm hover:text-sun-600 text-left">
+                Events
+            </button>
+
+            <button onclick="navigate('educational')"
+                class="text-forest font-semibold uppercase text-sm hover:text-sun-600 text-left">
+                Educational Materials
+            </button>
+
+            <button onclick="window.open('https://forms.gle/placeholder','_blank')"
+                class="bg-forest text-white px-4 py-2 rounded-xl font-bold text-sm hover:bg-forest-light transition-all">
+                Start Toloka
+            </button>
+
+        </div>
+    </div>
 
     <!-- Overlay -->
     <div id="menu-overlay" class="fixed inset-0 bg-black/40 hidden z-40"></div>
@@ -891,8 +922,7 @@
             if (targetElement) {
                 targetElement.scrollIntoView({ behavior: 'smooth' });
             }
-        }); Comm
-
+        });
         // Initial render
         renderEvents();
     </script>
